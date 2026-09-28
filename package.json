@@ -1,0 +1,16 @@
+{
+  "name": "ignacio-0506",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Snail Racing Betting & Payment Gateway Simulation Platform",
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter shared build --watch\" \"pnpm --filter server dev\" \"pnpm --filter client dev\"",
+    "build": "pnpm --filter shared build && pnpm --filter server build && pnpm --filter client build",
+    "test": "pnpm --filter shared test && pnpm --filter server test && pnpm --filter client test",
+    "lint": "pnpm --filter server lint && pnpm --filter client lint"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.8.2"
+  }
+}
