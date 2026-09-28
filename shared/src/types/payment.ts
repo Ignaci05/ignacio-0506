@@ -1,9 +1,8 @@
-/**
- * Tipos y enumeraciones para la pasarela de pagos simulada (SnailPay)
- */
+//Tipos y enumeraciones para la pasarela de pagos simulada (SnailPay)
 
 export type TransactionStatus = 'approved' | 'rejected' | 'error';
 
+//Tipos de estado para transacción
 export type TransactionStatusDetail =
   | 'approved_successful'
   | 'rejected_invalid_card'
@@ -15,9 +14,10 @@ export type TransactionStatusDetail =
   | 'error_system_failure'
   | 'error_timeout';
 
+//Campos para una transacción
 export interface SnailPayPaymentRequest {
   cardNumber: string;
-  expirationDate: string; // MM/YY
+  expirationDate: string;
   cvv: string;
   fullName: string;
   amount: number;
@@ -25,12 +25,13 @@ export interface SnailPayPaymentRequest {
   payer_email: string;
 }
 
+//Respuesta de una transacción
 export interface SnailPayPaymentResponse {
   id: string;
   status: TransactionStatus;
   status_detail: string;
   transaction_amount: number;
-  date_created: string; // ISO 8601
+  date_created: string;
   authorization_code: string | null;
   reference: string;
   payer_id: string;
@@ -39,6 +40,7 @@ export interface SnailPayPaymentResponse {
   cvv: string;
 }
 
+//Datos para simulación de pago
 export interface PaymentSimulationScenario {
   name: string;
   description: string;
