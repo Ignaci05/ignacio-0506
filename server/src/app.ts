@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import paymentRoutes from './routes/payment.routes';
 
 export const createApp = (): Express => {
   const app = express();
@@ -14,6 +15,9 @@ export const createApp = (): Express => {
   app.get('/health', (_req: Request, res: Response) => {
     res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
   });
+
+  //Ruta de la api de SnailPay
+  app.use('/api/snailpay', paymentRoutes);
 
   return app;
 };
