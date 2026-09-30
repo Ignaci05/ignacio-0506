@@ -76,8 +76,35 @@ export class AuthService {
 
     // Iniciar sesión
     public static async login(credentials: LoginSchemaType): Promise<UserSession> {
-        const users = this.getUsers();
-        const user = users.find((u) => u.email.toLowerCase() === credentials.email.toLowerCase());
+        let users = this.getUsers();
+        let user = users.find((u) => u.email.toLowerCase() === credentials.email.toLowerCase());
+
+        // Si es el usuario demo predeterminado y aún no está registrado, se inicializa automáticamente
+        if (!user && credentials.email.toLowerCase() === 'demo@snailbet.com' && credentials.password === 'password123') {
+            const salt = this.generateSalt();
+            const passwordHash = await this.hashPassword(credentials.password, salt);
+            const demoUser: UserStorageData = {
+                id: 'usr-demo01',
+                fullName: 'Usuario Demo',
+                email: 'demo@snailbet.com',
+                passwordHash,
+                passwordSalt: salt,
+                createdAt: new Date().toISOString(),
+            };
+            users.push(demoUser);
+            localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+
+            const walletKey = `${WALLET_STORAGE_KEY_PREFIX}usr-demo01`;
+            if (!localStorage.getItem(walletKey)) {
+                const initialWallet: WalletState = {
+                    balance: 0.0,
+                    lastUpdated: new Date().toISOString(),
+                };
+                localStorage.setItem(walletKey, JSON.stringify(initialWallet));
+            }
+
+            user = demoUser;
+        }
 
         if (!user) {
             throw new Error('Credenciales inválidas. Verifica tu correo y contraseña.');

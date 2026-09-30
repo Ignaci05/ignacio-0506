@@ -21,6 +21,7 @@ export const AuthView: React.FC = () => {
     const {
         register: registerLogin,
         handleSubmit: handleLoginSubmit,
+        setValue: setLoginValue,
         formState: { errors: loginErrors },
     } = useForm<LoginSchemaType>({
         resolver: zodResolver(LoginSchema),
@@ -141,6 +142,20 @@ export const AuthView: React.FC = () => {
                         >
                             Ingresar a la Plataforma
                         </Button>
+
+                        <div className="pt-2 border-t border-slate-800/80">
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setLoginValue('email', 'demo@snailbet.com');
+                                    setLoginValue('password', 'password123');
+                                    setAuthError(null);
+                                }}
+                                className="w-full py-2 px-3 text-xs font-medium text-slate-400 bg-slate-800/50 hover:bg-slate-800 hover:text-slate-200 border border-slate-700/60 rounded-lg transition-colors flex items-center justify-center gap-2"
+                            >
+                                <span>Usar credenciales demo (demo@snailbet.com)</span>
+                            </button>
+                        </div>
                     </form>
                 )}
 
