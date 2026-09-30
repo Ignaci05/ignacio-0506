@@ -4,9 +4,9 @@
   "private": true,
   "description": "Snail Racing Betting & Payment Gateway Simulation Platform",
   "scripts": {
-    "dev": "concurrently \"pnpm --filter shared build --watch\" \"pnpm --filter server dev\" \"pnpm --filter client dev\"",
-    "build": "pnpm --filter shared build && pnpm --filter server build && pnpm --filter client build",
-    "test": "pnpm --filter shared test && pnpm --filter server test && pnpm --filter client test",
+    "dev": "concurrently \"pnpm --filter @app/shared build --watch\" \"pnpm --filter @app/server dev\" \"pnpm --filter @app/client dev\"",
+    "build": "pnpm -r build",
+    "test": "pnpm --filter @app/shared test && pnpm --filter @app/server test && pnpm --filter @app/client test",
     "lint": "pnpm --filter server lint && pnpm --filter client lint"
   },
   "devDependencies": {
